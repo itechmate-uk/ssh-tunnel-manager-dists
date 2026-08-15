@@ -1,0 +1,5 @@
+# Release archives are attached to GitHub Releases, not committed to main.
+dist/
+*.zip
+*.tar.gz
+SHA256SUMS.txt
