@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "product": "Tunnel Manager",
+  "version": "0.1.1",
+  "source_repository": "helal00/ssh-tunnel-manager",
+  "source_tag": "v0.1.1",
+  "source_commit": "83228dc1731bea6058461eb50175838669cc775e",
+  "source_committed_at": "2026-08-15T16:48:58Z",
+  "builder": "goreleaser 2.17.0",
+  "artifacts": [
+    {
+      "file": "tunnelm_0.1.1_windows_amd64.zip",
+      "os": "windows",
+      "arch": "amd64",
+      "support": "desktop",
+      "sha256": "c1763c28958dd63437d71aa79175f5d85eea250360758eb042d4172271dab51f"
+    },
+    {
+      "file": "tunnelm_0.1.1_linux_amd64.tar.gz",
+      "os": "linux",
+      "arch": "amd64",
+      "support": "basic",
+      "sha256": "704b143983c7ab5b95857ba2c76972eca8b5368f0e4c90f51f1e2b3a4d22b8c9"
+    },
+    {
+      "file": "tunnelm_0.1.1_linux_arm64.tar.gz",
+      "os": "linux",
+      "arch": "arm64",
+      "support": "basic",
+      "sha256": "5741f9586f55e9a0fef7cd68e0cdd2e598bae9c2d2f2816953e4d0389513c482"
+    },
+    {
+      "file": "tunnelm_0.1.1_darwin_amd64.tar.gz",
+      "os": "darwin",
+      "arch": "amd64",
+      "support": "basic",
+      "sha256": "589f5972cc0f3f2c14b20a12cb1ad392b88aa6ecd2d20503b5c0d062ad3c0759"
+    },
+    {
+      "file": "tunnelm_0.1.1_darwin_arm64.tar.gz",
+      "os": "darwin",
+      "arch": "arm64",
+      "support": "basic",
+      "sha256": "0c0efae1d8d16e87124224598df031e8a7ec0e47b60ccc6251f8ea598676f486"
+    }
+  ]
+}

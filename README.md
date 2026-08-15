@@ -1,7 +1,11 @@
 # Tunnel Manager Downloads
 
 This repository is the public binary distribution channel for Tunnel Manager.
-Download releases from:
+The current verified package set is:
+
+- [Tunnel Manager v0.1.1](packages/v0.1.1)
+
+Future tagged builds will also be attached to:
 
 https://github.com/helal00/ssh-tunnel-manager-dists/releases
 
@@ -21,7 +25,8 @@ complete.
 
 ## Verify a download
 
-Each release includes `SHA256SUMS.txt`.
+Each versioned package directory and GitHub Release includes
+`SHA256SUMS.txt`.
 
 Linux/macOS:
 
