@@ -1,13 +1,16 @@
 # Tunnel Manager Downloads
 
 This repository is the public binary distribution channel for Tunnel Manager.
-The current verified package set is:
+The current GitHub Release is:
 
-- [Tunnel Manager v0.1.1](packages/v0.1.1)
+- [Tunnel Manager v0.1.2](https://github.com/helal00/ssh-tunnel-manager-dists/releases/tag/tunnelm-v0.1.2)
 
-Future tagged builds will also be attached to:
+Portable archives and `SHA256SUMS.txt` are attached to each release:
 
 https://github.com/helal00/ssh-tunnel-manager-dists/releases
+
+The repository also retains a checked-in mirror of the earlier
+[v0.1.1 package set](packages/v0.1.1) for reproducibility.
 
 Tunnel Manager is free/open-source software. Source is maintained at:
 
