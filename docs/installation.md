@@ -3,7 +3,7 @@
 ## Download
 
 Download only from the public
-[Tunnel Manager releases](https://github.com/helal00/ssh-tunnel-manager-dists/releases).
+[Tunnel Manager releases](https://github.com/itechmate-uk/ssh-tunnel-manager-dists/releases).
 Select the archive matching your operating system and architecture, and
 download `SHA256SUMS.txt` from the same release.
 
