@@ -60,11 +60,23 @@ Windows.
 
 ## Updating
 
+Starting with `v0.1.4`, the Windows manager shows **Update** between Autostart
+and About and in the tray when a newer release exists. It compares the release
+manifest with the installed files, downloads only files whose SHA-256 changed,
+stops manager-owned tunnels, applies the verified files after process exit, and
+restarts automatically.
+
+Versions through `v0.1.2` predate this updater and require one manual upgrade to
+`v0.1.4` or newer:
+
 1. Quit Tunnel Manager from its tray so manager-owned tunnels stop.
 2. Download and verify the new archive.
 3. Extract it to a new folder or replace program files while Tunnel Manager is
    not running.
 4. Start it and check `tunnelm version --json` and package information.
+
+The same manual procedure remains the fallback if the portable package folder
+is read-only or a platform-specific differential manifest is unavailable.
 
 Configuration, device authentication choices, keyring secrets, bridge state,
 and notification state live under the current user's OS application-data

@@ -36,6 +36,8 @@ development services available from one tray application.
 - Imports safe text-only TOML tunnel bundles supplied by compatible apps.
 - Stores configuration and machine-specific state in the current user's
   application-data directory, so the program folder can move safely.
+- From `v0.1.4`, verifies release manifests and downloads only changed package
+  files when applying an update from the manager or tray.
 
 ## Quick Start
 
