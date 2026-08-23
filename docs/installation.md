@@ -60,14 +60,14 @@ Windows.
 
 ## Updating
 
-Starting with `v0.1.4`, the Windows manager shows **Update** between Autostart
+Starting with `v0.1.5`, the Windows manager shows **Update** between Autostart
 and About and in the tray when a newer release exists. It compares the release
 manifest with the installed files, downloads only files whose SHA-256 changed,
 stops manager-owned tunnels, applies the verified files after process exit, and
 restarts automatically.
 
 Versions through `v0.1.2` predate this updater and require one manual upgrade to
-`v0.1.4` or newer:
+`v0.1.5` or newer:
 
 1. Quit Tunnel Manager from its tray so manager-owned tunnels stop.
 2. Download and verify the new archive.
