@@ -36,8 +36,8 @@ development services available from one tray application.
 - Imports safe text-only TOML tunnel bundles supplied by compatible apps.
 - Stores configuration and machine-specific state in the current user's
   application-data directory, so the program folder can move safely.
-- From `v0.1.5`, verifies release manifests and downloads only changed package
-  files when applying an update from the manager or tray.
+- Verifies the platform archive and replaces only changed installed files when
+  applying an update from the manager or tray.
 
 ## Quick Start
 
@@ -69,8 +69,8 @@ parity is planned and must not be inferred from the availability of an archive.
 
 ## Downloads And Verification
 
-Each GitHub Release contains portable archives plus `SHA256SUMS.txt`. Newer
-releases also include a source-bound release manifest and per-package SBOMs.
+Each current GitHub Release uploads exactly five portable archives,
+`SHA256SUMS.txt`, and a source-bound `manifest.json`.
 The checked-in [`packages/v0.1.1`](packages/v0.1.1) directory is an older
 reproducibility mirror; use GitHub Releases for current downloads.
 
@@ -99,10 +99,12 @@ Tunnel Manager stores normal configuration and machine-specific state in the
 current operating-system user's application-data directories. Updating or
 moving a portable binary does not replace that data.
 
-## Source And License
+GitHub automatically adds “Source code” ZIP and tar links for every release
+tag. They cannot be hidden and contain this public distribution repository,
+not Tunnel Manager's private application source.
 
-Tunnel Manager is free and open-source software. The source repository is:
+## License
 
-https://github.com/itechmate-uk/ssh-tunnel-manager
-
-Licensed under Apache-2.0.
+Tunnel Manager preview binaries are currently free to use under the bundled
+license. Application source code is not published in this distribution
+repository.

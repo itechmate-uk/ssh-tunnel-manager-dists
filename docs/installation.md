@@ -24,8 +24,9 @@ Windows PowerShell:
 Get-FileHash .\tunnelm_*.zip -Algorithm SHA256
 ```
 
-Compare the resulting archive hash with its `SHA256SUMS.txt` entry. Newer
-releases also provide `RELEASE-MANIFEST.json`, its checksum, and SPDX SBOMs.
+Compare the resulting archive hash with its `SHA256SUMS.txt` entry. Current
+releases also provide source-bound `manifest.json` with platform, archive size,
+and SHA-256 metadata.
 
 ## Windows
 
@@ -60,11 +61,10 @@ Windows.
 
 ## Updating
 
-Starting with `v0.1.5`, the Windows manager shows **Update** between Autostart
-and About and in the tray when a newer release exists. It compares the release
-manifest with the installed files, downloads only files whose SHA-256 changed,
-stops manager-owned tunnels, applies the verified files after process exit, and
-restarts automatically.
+The Windows manager shows update status between Autostart and About and in the
+tray. It downloads the matching platform archive, verifies it against
+`manifest.json`, stages it locally, stops manager-owned tunnels, replaces only
+installed files whose SHA-256 changed, and restarts automatically.
 
 Versions through `v0.1.2` predate this updater and require one manual upgrade to
 `v0.1.5` or newer:
@@ -76,7 +76,7 @@ Versions through `v0.1.2` predate this updater and require one manual upgrade to
 4. Start it and check `tunnelm version --json` and package information.
 
 The same manual procedure remains the fallback if the portable package folder
-is read-only or a platform-specific differential manifest is unavailable.
+is read-only or a verified platform archive is unavailable.
 
 Configuration, device authentication choices, keyring secrets, bridge state,
 and notification state live under the current user's OS application-data
