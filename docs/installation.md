@@ -62,9 +62,11 @@ Windows.
 ## Updating
 
 The Windows manager shows update status between Autostart and About and in the
-tray. It downloads the matching platform archive, verifies it against
-`manifest.json`, stages it locally, stops manager-owned tunnels, replaces only
-installed files whose SHA-256 changed, and restarts automatically.
+tray. It checks at startup and every 30 minutes. Clicking any update-status
+label forces an immediate check; a current build reports that it is the latest
+release. A newer build downloads the matching platform archive, verifies it
+against `manifest.json`, stages it locally, stops manager-owned tunnels,
+replaces only installed files whose SHA-256 changed, and restarts automatically.
 
 Versions through `v0.1.2` predate this updater and require one manual upgrade to
 `v0.1.5` or newer:
