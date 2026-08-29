@@ -11,6 +11,8 @@ even when a file is unchanged from the published release.
 3. Confirm the archive name, version, OS, and architecture.
 4. Do not continue if the checksum differs or the download came from another
    site.
+5. A matching checksum proves that the download matches the published file;
+   it does not overrule an antivirus malware detection.
 
 ## Windows
 
@@ -18,6 +20,11 @@ After verification, SmartScreen may offer **More info > Run anyway**. This is
 expected for an unsigned preview binary. Do not install a self-signed root
 certificate supplied by an unknown party and do not disable SmartScreen
 globally.
+
+SmartScreen's unknown-publisher/reputation warning is different from a
+Microsoft Defender malware detection. Never choose **Allow on device** or
+otherwise bypass a named malware detection. Report the release version,
+detection name, archive hash, and affected executable instead.
 
 ## macOS
 

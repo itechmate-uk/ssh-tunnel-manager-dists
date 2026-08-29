@@ -8,6 +8,10 @@ development services available from one tray application.
 
 [Download the latest release](https://github.com/itechmate-uk/ssh-tunnel-manager-dists/releases)
 
+> **Withdrawn release:** Tunnel Manager `v0.1.9` was removed after Microsoft
+> Defender reported `Trojan:Win32/Wacatac.B!ml` for its Windows executable.
+> Do not restore, share, or run that version. Use the current release only.
+
 > **Unsigned preview builds:** current downloadable binaries are not yet
 > signed by Microsoft, Apple, or a Linux package repository. Windows
 > SmartScreen and equivalent platform protections may therefore warn before
