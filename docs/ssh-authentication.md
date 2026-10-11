@@ -40,6 +40,26 @@ the managed key outside Tunnel Manager. If a matching `Host` block already
 exists, add or update only `IdentityFile` and `IdentitiesOnly`; do not create a
 conflicting duplicate block.
 
+## Tunnel-Only Accounts (Key Handoff)
+
+Some accounts may only open tunnels and have no shell over SSH, for example a
+supervised AgentW account. Tunnel Manager cannot install a key on such an
+account by itself. The application behind the tunnel tells Tunnel Manager
+what its session supports:
+
+- If the application **offers a key handoff**, managed-key setup works as
+  usual. Tunnel Manager creates the key on this computer and hands only the
+  public key to the application through the tunnel. The application installs
+  it, limited to tunnels, and Tunnel Manager verifies key-only login before
+  switching the profile. The private key never leaves this computer. If the
+  application says the key waits for approval, the profile keeps its password
+  until you run key setup again after approval.
+- If it does **not**, Tunnel Manager does not offer a dedicated key for that
+  profile, and the Authentication panel shows the application's reason.
+
+Removing the dedicated key from the Authentication panel asks the application
+to remove it too.
+
 ## Shared Configurations
 
 A shared/mounted tunnel TOML contains only portable tunnel definitions. Every
