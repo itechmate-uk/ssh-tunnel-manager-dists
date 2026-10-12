@@ -62,7 +62,12 @@ Windows.
 ## Updating
 
 The Windows manager shows update status between Autostart and About and in the
-tray. It checks at startup and every 30 minutes.
+tray. It checks at startup and every 30 minutes, and again 5 minutes after a
+failed check. Since v0.1.30 the button is coloured:
+- **green** (`Update VERSION`): a new release is available;
+- **yellow** (`Update check failed`): it could not check, and it will try again
+  soon;
+- **plain** (`Updated VERSION`): you have the latest release.
 
 Clicking the update button (or the tray's Updates item) updates in steps. The
 manager window is covered while it works, so nothing can be clicked by mistake,
@@ -72,12 +77,25 @@ and the cover shows what is happening:
    check fails, you are told so and the window is usable again.
 2. **Downloading and verifying** the new release against `manifest.json`. Your
    tunnels and app windows keep running.
-3. **Asking you.** Installing closes Tunnel Manager and its app windows, and the
-   question says how many are open. Choose No to keep working; press the button
-   again later to install.
+3. **Asking you.** The question says how many running tunnels and app windows
+   will close for a few seconds, and that they come back by themselves. Choose No
+   to keep working; press the button again later to install.
 4. **Installing.** Tunnel Manager stops its tunnels, replaces only the files that
-   changed (checked by SHA-256), restarts by itself, and then tells you whether
-   the update worked. If it did not, the previous version is kept.
+   changed (checked by SHA-256), and restarts by itself. If the update fails, the
+   previous version is kept.
+5. **Reopening (since v0.1.30).** The manager opens, starts the same tunnels again
+   and reopens the app windows at the pages they showed. Then it tells you whether
+   the update worked and what it reopened.
+
+**Passwords after an update:**
+- A password saved in the system's credential vault (Windows Credential Manager,
+  macOS Keychain, the Linux keyring) is used again by itself.
+- A password Tunnel Manager kept only until it closed is asked for once per
+  profile. Cancel leaves that profile's tunnels stopped; start them later.
+
+**Updating from v0.1.29 or older:** that version installs the update, so only the
+tunnels that had app windows come back, with their windows. Start any others
+yourself. Updates after that reopen everything.
 
 Versions through `v0.1.2` predate this updater and require one manual upgrade to
 `v0.1.5` or newer:
