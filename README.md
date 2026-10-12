@@ -64,6 +64,7 @@ parity is planned and must not be inferred from the availability of an archive.
 - [Installation And Updates](docs/installation.md)
 - [Getting Started](docs/getting-started.md)
 - [SSH Authentication And Managed Keys](docs/ssh-authentication.md)
+- [Opening A Terminal And Using Managed Keys Everywhere](docs/terminal-and-ssh-config.md)
 - [Tunnel Imports And Remote Services](docs/remote-services.md)
 - [Notifications And Local File Bridge](docs/notifications-and-file-bridge.md)
 - [Platform Support](docs/platform-support.md)

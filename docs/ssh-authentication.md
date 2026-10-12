@@ -32,13 +32,18 @@ dedicated Ed25519 key for the profile. It installs only the public key on the
 remote account and verifies key-only login before changing the profile.
 
 The key belongs to the current local OS user and profile. Tunnel Manager does
-not overwrite default SSH keys, disable password login, edit `sshd_config`, or
-change the user's OpenSSH config automatically.
+not overwrite default SSH keys, disable password login, or edit `sshd_config`.
+It changes your OpenSSH config only if you turn on **Add profiles to SSH
+config**.
 
-The Authentication panel can show a profile-specific OpenSSH stanza for using
-the managed key outside Tunnel Manager. If a matching `Host` block already
-exists, add or update only `IdentityFile` and `IdentitiesOnly`; do not create a
-conflicting duplicate block.
+To use the managed key outside Tunnel Manager:
+- **Terminal button:** opens the profile in a terminal, already signed in.
+- **Add profiles to SSH config:** lets `ssh`, `scp` and VS Code use the key.
+- **By hand:** the Authentication panel shows a profile-specific OpenSSH stanza.
+  If a matching `Host` block already exists, add or update only `IdentityFile` and
+  `IdentitiesOnly`; do not create a conflicting duplicate block.
+
+See [Opening A Terminal And Using Managed Keys Everywhere](terminal-and-ssh-config.md).
 
 ## Tunnel-Only Accounts (Key Handoff)
 
