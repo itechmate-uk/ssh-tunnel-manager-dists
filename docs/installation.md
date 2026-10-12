@@ -62,11 +62,22 @@ Windows.
 ## Updating
 
 The Windows manager shows update status between Autostart and About and in the
-tray. It checks at startup and every 30 minutes. Clicking any update-status
-label forces an immediate check; a current build reports that it is the latest
-release. A newer build downloads the matching platform archive, verifies it
-against `manifest.json`, stages it locally, stops manager-owned tunnels,
-replaces only installed files whose SHA-256 changed, and restarts automatically.
+tray. It checks at startup and every 30 minutes.
+
+Clicking the update button (or the tray's Updates item) updates in steps. The
+manager window is covered while it works, so nothing can be clicked by mistake,
+and the cover shows what is happening:
+
+1. **Checking for updates.** If you already have the latest release, or the
+   check fails, you are told so and the window is usable again.
+2. **Downloading and verifying** the new release against `manifest.json`. Your
+   tunnels and app windows keep running.
+3. **Asking you.** Installing closes Tunnel Manager and its app windows, and the
+   question says how many are open. Choose No to keep working; press the button
+   again later to install.
+4. **Installing.** Tunnel Manager stops its tunnels, replaces only the files that
+   changed (checked by SHA-256), restarts by itself, and then tells you whether
+   the update worked. If it did not, the previous version is kept.
 
 Versions through `v0.1.2` predate this updater and require one manual upgrade to
 `v0.1.5` or newer:

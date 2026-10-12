@@ -65,6 +65,7 @@ parity is planned and must not be inferred from the availability of an archive.
 - [Getting Started](docs/getting-started.md)
 - [SSH Authentication And Managed Keys](docs/ssh-authentication.md)
 - [Opening A Terminal And Using Managed Keys Everywhere](docs/terminal-and-ssh-config.md)
+- [Opening A Server In Your Programs (Open With: WinSCP, rclone, VS Code)](docs/open-with.md)
 - [Tunnel Imports And Remote Services](docs/remote-services.md)
 - [Notifications And Local File Bridge](docs/notifications-and-file-bridge.md)
 - [Platform Support](docs/platform-support.md)
