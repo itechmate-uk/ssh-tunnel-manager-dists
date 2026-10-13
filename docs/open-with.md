@@ -132,9 +132,14 @@ Browser, Cyberduck, and so on. You can link as many as you like.
 - `{host}`, `{user}`, `{port}`
 - `{target}` (`user@host`)
 - `{folder}`, `{profile}`
+- `{alias}` (since v0.1.33): the profile's name in your SSH config
 
 For example, FileZilla with the arguments `{url}`. The program asks for the
 password itself.
+
+**A program that reads your OpenSSH config** (for example one built on `ssh`)
+can sign in with Tunnel Manager's key: choose **Auth... > Add managed key to
+system SSH config** for the profile, and pass `{alias}` to the program.
 
 ## Logins without file access
 
