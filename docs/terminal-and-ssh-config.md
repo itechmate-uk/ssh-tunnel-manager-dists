@@ -58,15 +58,19 @@ Left blank, Tunnel Manager looks on PATH and in `Program Files\PuTTY`.
 - **A managed key with a passphrase:** it gets no PuTTY copy. Choose another
   terminal, or convert the key with PuTTYgen.
 
-## Add Profiles To SSH Config
+## Add Managed Key To System SSH Config
 
-**What it does:** your own terminals, `scp`, VS Code Remote-SSH and WinSCP don't
-know about Tunnel Manager's keys, so they ask for a password. Turn on **SSH Settings
-> Terminal > Add profiles to SSH config** and they use the keys too:
+**What it does:** your own terminals, `scp` and VS Code Remote-SSH don't know about
+Tunnel Manager's keys, so they ask for a password. Choose **Auth... > Add managed
+key to system SSH config** for a profile, and they use its key too:
 - `ssh proxmox` connects with the profile's server, user, port, jump host and key.
-  The name is the profile name in lower case; SSH Settings shows the names after
-  you save.
+  The name is the profile name in lower case; the reply shows it.
 - `ssh root@203.0.113.10` (the same server and user) also uses the key.
+
+Auth... offers this once the profile has a managed key on this computer, and then
+offers **Remove managed key from system SSH config**. Its status line says whether
+the key is in the system SSH config. (Before v0.1.32 this was one setting for all
+profiles in SSH Settings > Terminal; if you had it on, those profiles stay added.)
 
 **What it changes on your computer:**
 - Tunnel Manager writes its entries to its own file, `.ssh\tunnel-manager\
@@ -79,7 +83,6 @@ know about Tunnel Manager's keys, so they ask for a password. Turn on **SSH Sett
   Tunnel Manager picks another (`proxmox-tm`).
 
 **It follows your profiles:**
-- Setting up a key adds the profile.
 - Removing the key, or switching the profile to a password, removes it.
 - Renaming or deleting the profile renames or removes its entry.
 - Replacing the key needs no change.
@@ -87,5 +90,5 @@ know about Tunnel Manager's keys, so they ask for a password. Turn on **SSH Sett
 Don't edit Tunnel Manager's file; it is rewritten. Keep your own entries in
 `.ssh\config`.
 
-**Turning it off** removes the two lines and Tunnel Manager's file, so your
-`.ssh\config` is back as it was.
+**Removing the last profile** removes the two lines and Tunnel Manager's file, so
+your `.ssh\config` is back as it was.

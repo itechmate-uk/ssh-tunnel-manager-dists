@@ -12,10 +12,22 @@ The **Open with ▾** button is in each profile's row in the manager window, nex
 to **Terminal**.
 
 **The menu:**
-- your programs, each opening the selected profile;
-- **Configure programs…**, where you add, change or remove programs.
+- **Configure programs…**, where you add, change, remove and order programs;
+- your programs, in the order you set, each opening the selected profile.
 
 The list belongs to this computer only.
+
+## Configure programs (Windows)
+
+Since v0.1.32 **Configure programs…** opens a list of your programs, in the order
+of the Open with menu. Select a row, then:
+- **Change** (or double-click the row) to edit it;
+- **Remove** to take it out of the list (you are asked first);
+- **Move Up** / **Move Down** to change the menu order.
+
+**Add Supported Program** offers the supported programs you have not added yet.
+**Link a Program** adds any other program. Each button saves straight away;
+**Close** just closes the list.
 
 ## Two kinds of program
 
@@ -29,12 +41,20 @@ file the program keeps.
 
 ## Supported programs
 
-| Program | Computers | With Tunnel Manager's key | With a saved password |
-|---|---|---|---|
-| **WinSCP** | Windows | Signs in with a PuTTY copy of the key (`.ppk`) | Signs in. The password goes through a private file that is deleted after 2 minutes |
-| **rclone mount** | Windows, macOS, Linux | Signs in | Signs in. The password goes to rclone directly, never to a file |
-| **VS Code (Remote-SSH)** | Windows, macOS, Linux | Signs in, with "Add profiles to SSH config" turned on | Not supported: use a key |
-| **File manager** | Linux | Signs in, with "Add profiles to SSH config" turned on | The file manager asks |
+| Program | Computers | With Tunnel Manager's key | With your system OpenSSH keys | With a saved password |
+|---|---|---|---|---|
+| **WinSCP** | Windows | Signs in with a PuTTY copy of the key (`.ppk`) | Signs in with a PuTTY copy of your key (since v0.1.32) | Signs in. The password goes through a private file that is deleted after 2 minutes |
+| **rclone mount** | Windows, macOS, Linux | Signs in | Signs in with your key (since v0.1.32) | Signs in. The password goes to rclone directly, never to a file |
+| **VS Code (Remote-SSH)** | Windows, macOS, Linux | Signs in, once the key is in the system SSH config (Auth...) | Signs in through your SSH config | Not supported: VS Code asks |
+| **File manager** | Linux | Signs in, once the key is in the system SSH config (Auth...) | Signs in through your SSH config | The file manager asks |
+
+**System OpenSSH keys:** for a profile set to "Use system OpenSSH config and
+keys", Tunnel Manager asks your OpenSSH which server, user and key it would use
+(`ssh -G`), so a `Host` name from your own `.ssh\config` works. WinSCP gets a
+PuTTY copy of the first key without a passphrase, kept in
+`.ssh\tunnel-manager\system-keys\`; nothing is written beside your key. A key
+with a passphrase can't be used this way: WinSCP then asks for the password, and
+Tunnel Manager says why.
 
 Not yet supported:
 - WinSCP and rclone mount with profiles that use a jump host; use the Terminal or
@@ -85,9 +105,11 @@ You do not need an `rclone.conf` for this. If your `rclone.conf` holds passwords
 
 **Opens:** a folder of the server in VS Code with the Remote-SSH extension.
 
-**Needs:**
-- a Tunnel Manager key on the profile;
-- **SSH Settings > Terminal > Add profiles to SSH config** turned on.
+**Needs one of:**
+- a Tunnel Manager key on the profile, added with **Auth... > Add managed key to
+  system SSH config**;
+- a profile on your system OpenSSH config and keys, without its own SSH port (or
+  with a `Host` entry for it in your `.ssh\config`).
 
 **Folder:** blank opens `/root` for root, or `/home/USER` otherwise.
 
@@ -96,13 +118,14 @@ You do not need an `rclone.conf` for this. If your `rclone.conf` holds passwords
 **Opens:** the server in your desktop's file manager (GNOME Files, Dolphin, ...)
 as `sftp://`.
 
-**Sign-in:** with "Add profiles to SSH config" on, it uses Tunnel Manager's key.
+**Sign-in:** with the profile's key in the system SSH config (Auth...), it uses
+Tunnel Manager's key; a profile on your system OpenSSH config uses your keys.
 Otherwise it asks for the password.
 
 ## Linked programs
 
-Add any program in **Configure programs… > Add Other program (link)**: FileZilla,
-Rclone Browser, Cyberduck, and so on.
+Add any program in **Configure programs… > Link a Program**: FileZilla, Rclone
+Browser, Cyberduck, and so on. You can link as many as you like.
 
 **Arguments** can include the server's address:
 - `{url}` (`sftp://user@host:port/folder`)
@@ -131,6 +154,7 @@ tunnelm open-with add rclone-mount --folder /
 tunnelm open-with add linked --name FileZilla --path /usr/bin/filezilla --args "{url}"
 tunnelm open-with edit ID --mount-point /mnt/server
 tunnelm open-with remove ID
+tunnelm open-with move ID up                    # or down: the menu order
 tunnelm open-with PROFILE ID                    # open it
 ```
 

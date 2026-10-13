@@ -33,12 +33,13 @@ remote account and verifies key-only login before changing the profile.
 
 The key belongs to the current local OS user and profile. Tunnel Manager does
 not overwrite default SSH keys, disable password login, or edit `sshd_config`.
-It changes your OpenSSH config only if you turn on **Add profiles to SSH
-config**.
+It changes your OpenSSH config only if you choose **Auth... > Add managed key to
+system SSH config** for the profile.
 
 To use the managed key outside Tunnel Manager:
 - **Terminal button:** opens the profile in a terminal, already signed in.
-- **Add profiles to SSH config:** lets `ssh`, `scp` and VS Code use the key.
+- **Auth... > Add managed key to system SSH config:** lets `ssh`, `scp` and VS
+  Code use the key.
 - **By hand:** the Authentication panel shows a profile-specific OpenSSH stanza.
   If a matching `Host` block already exists, add or update only `IdentityFile` and
   `IdentitiesOnly`; do not create a conflicting duplicate block.
