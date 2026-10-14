@@ -170,9 +170,13 @@ Otherwise it asks for the password.
 
 ## Working as root
 
-WinSCP and rclone mount can open the files as root through sudo. Set up the
-server once (the program form shows the same steps):
+WinSCP and rclone mount can open the files as root through sudo. In the
+program's form, set **SFTP server command**:
 
+**First try `sudo /usr/lib/sftp-server`.** It works on Ubuntu and Debian when your
+login can use sudo without a password (tested on Ubuntu). `-n` is not needed.
+
+If it does not work:
 1. Find the server's SFTP server program:
 
    ```text
@@ -182,24 +186,22 @@ server once (the program form shows the same steps):
    If it shows a path, use it. If it shows `internal-sftp`, find the file:
 
    ```text
-   ls /usr/lib/openssh/sftp-server /usr/libexec/openssh/sftp-server /usr/lib/ssh/sftp-server /usr/libexec/sftp-server /usr/lib/sftp-server 2>/dev/null
+   ls /usr/lib/sftp-server /usr/lib/openssh/sftp-server /usr/libexec/openssh/sftp-server /usr/lib/ssh/sftp-server /usr/libexec/sftp-server 2>/dev/null
    ```
 
-   Usually: Debian/Ubuntu `/usr/lib/openssh/sftp-server`; RHEL, Fedora, Alma,
-   Rocky `/usr/libexec/openssh/sftp-server`; Arch `/usr/lib/ssh/sftp-server`.
-2. Let your login run only that program with sudo, without a password. Run
-   `sudo visudo -f /etc/sudoers.d/sftp-server` and add (your login and path):
+   Usually: RHEL, Fedora, Alma, Rocky `/usr/libexec/openssh/sftp-server`; Arch
+   `/usr/lib/ssh/sftp-server`.
+2. Check: `sudo -n -l PATH` prints the path when sudo allows it without a
+   password. If not, run `sudo visudo -f /etc/sudoers.d/sftp-server` and add
+   (your login and path):
 
    ```text
-   youruser ALL=(root) NOPASSWD: /usr/lib/openssh/sftp-server
+   youruser ALL=(root) NOPASSWD: PATH
    ```
 
-3. Check: `sudo -n -l /usr/lib/openssh/sftp-server` prints the path without
-   asking for a password. If sudo says it needs a tty, also add
-   `Defaults!/usr/lib/openssh/sftp-server !requiretty`.
-4. In the program's form, set **SFTP server command** to
-   `sudo -n /usr/lib/openssh/sftp-server`. `-n` makes sudo fail at once rather
-   than wait for a password.
+   If sudo says it needs a tty, also add `Defaults!PATH !requiretty`.
+3. Set **SFTP server command** to `sudo PATH`. Adding `-n` (`sudo -n PATH`) is
+   optional: a missing sudo rule then fails at once.
 
 Files you create this way belong to root.
 
