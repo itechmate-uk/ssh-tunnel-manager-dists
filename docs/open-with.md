@@ -12,10 +12,14 @@ The **Open with ▾** button is in each profile's row in the manager window, nex
 to **Terminal**.
 
 **The menu:**
-- **Configure programs…**, where you add, change, remove and order programs;
-- your programs, in the order you set, each opening the selected profile.
+- **Configure programs for PROFILE…**, where you add, change, remove and order
+  that profile's programs;
+- the profile's programs, in the order you set, each opening that profile.
 
-The list belongs to this computer only.
+Each profile has its own list (since v0.1.34): a program added under one
+profile does not appear under another. The lists belong to this computer only.
+Before v0.1.34 one list served every profile; your first change copies it to
+every profile, so remove the programs a profile does not need.
 
 ## Configure programs (Windows)
 
@@ -154,12 +158,12 @@ macOS and Linux have no manager window, so there the list is set up with
 
 ```text
 tunnelm open-with catalog                       # what can be added here
-tunnelm open-with list                          # this computer's programs
-tunnelm open-with add rclone-mount --folder /
-tunnelm open-with add linked --name FileZilla --path /usr/bin/filezilla --args "{url}"
-tunnelm open-with edit ID --mount-point /mnt/server
-tunnelm open-with remove ID
-tunnelm open-with move ID up                    # or down: the menu order
+tunnelm open-with --profile PROFILE list        # the profile's programs
+tunnelm open-with --profile PROFILE add rclone-mount --folder /
+tunnelm open-with --profile PROFILE add linked --name FileZilla --path /usr/bin/filezilla --args "{url}"
+tunnelm open-with --profile PROFILE edit ID --mount-point /mnt/server
+tunnelm open-with --profile PROFILE remove ID
+tunnelm open-with --profile PROFILE move ID up  # or down: the menu order
 tunnelm open-with PROFILE ID                    # open it
 ```
 
