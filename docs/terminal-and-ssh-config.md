@@ -58,6 +58,19 @@ Left blank, Tunnel Manager looks on PATH and in `Program Files\PuTTY`.
 - **A managed key with a passphrase:** it gets no PuTTY copy. Choose another
   terminal, or convert the key with PuTTYgen.
 
+### When Tunnel Manager quits or crashes
+
+Since v0.1.37, **SSH Settings > Terminal** asks what happens to the Terminal (and
+PuTTY) windows Tunnel Manager opened when Tunnel Manager quits or crashes:
+- **Keep running on their own** (default): they stay open, whatever happens to
+  Tunnel Manager.
+- **Close with Tunnel Manager:** they close when Tunnel Manager quits, crashes or
+  restarts for an update. The window first says Tunnel Manager has ended; ssh gets
+  10 seconds to end before it is closed.
+
+Open with programs have the same setting in their own forms
+([Open With](open-with.md)).
+
 ## Add Managed Key To System SSH Config
 
 **What it does:** your own terminals, `scp` and VS Code Remote-SSH don't know about

@@ -39,6 +39,13 @@ v0.1.35). If the program is not installed, the location line says NOT FOUND, and
 opening it offers the download page. Its **Options** tab holds the program's own
 settings and an **Extra command-line options** box.
 
+**When Tunnel Manager quits or crashes** (since v0.1.37; WinSCP, rclone mount and
+linked programs): in the program's form, choose **Keep running on their own**
+(default) or **Close with Tunnel Manager**. Closing asks the program to end
+first, so rclone unmounts the drive; anything still running after 10 seconds is
+closed. VS Code and the Linux file manager always keep running: they open the
+folder in their own running window.
+
 ## Two kinds of program
 
 | Kind | Sign-in |
