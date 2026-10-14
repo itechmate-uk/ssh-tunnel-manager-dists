@@ -27,11 +27,17 @@ Since v0.1.32 **Configure programs…** opens a list of your programs, in the or
 of the Open with menu. Select a row, then:
 - **Change** (or double-click the row) to edit it;
 - **Remove** to take it out of the list (you are asked first);
-- **Move Up** / **Move Down** to change the menu order.
+- **Move Up** / **Move Down** to change the menu order;
+- **Run** to open the profile in it now (since v0.1.35).
 
 **Add Supported Program** offers the supported programs you have not added yet.
 **Link a Program** adds any other program. Each button saves straight away;
 **Close** just closes the list.
+
+A program's form describes it and links its official download page (since
+v0.1.35). If the program is not installed, the location line says NOT FOUND, and
+opening it offers the download page. Its **Options** tab holds the program's own
+settings and an **Extra command-line options** box.
 
 ## Two kinds of program
 
@@ -71,8 +77,14 @@ Not yet supported:
 
 **Settings:**
 - **Remote folder:** blank opens your home folder; `/` opens the server's root.
-- **SFTP server command** (optional): for example `sudo /usr/lib/sftp-server`
-  lets you work as root, if `sudo` needs no password on that server.
+- **SFTP server command** (optional): `sudo -n /usr/lib/openssh/sftp-server`
+  (your server's path) lets you work as root. The server needs a change first:
+  see [Working as root](#working-as-root).
+- **Options:** follow symbolic links (WinSCP's default) or show them as links.
+- **Extra command-line options:** any other WinSCP options, for example
+  `/log=C:\temp\winscp.log`.
+
+Download: [winscp.net](https://winscp.net/eng/download.php).
 
 ### rclone mount
 
@@ -90,6 +102,23 @@ Not yet supported:
   - Windows: a drive letter such as `X:`, or blank for the next free one.
   - macOS and Linux: an absolute folder, or blank for
     `~/TunnelManager/mounts/PROFILE`.
+
+**Options** (since v0.1.35):
+- **Symbolic links:** follow them (default), skip them, or show them as
+  `.rclonelink` files (rclone 1.69 and later).
+- **Server shell:** Linux/Unix (default) tells rclone the server's shell and
+  checksum commands, so it does not probe the server on every mount and print
+  `NOTICE: Can't save config "shell_type" for on the fly backend`. Choose
+  "Detect each time" for a server whose shell is not Unix.
+- **File cache:** `writes` (default; programs can save), `full` (large files,
+  media), `minimal`, `off`.
+- **Access:** read and write, or read only.
+- **Drive type** (Windows): local, or a network drive.
+- **Extra command-line options:** any other rclone flags, for example
+  `--dir-cache-time 5s`. They come last, so they win over Tunnel Manager's.
+
+On Windows, rclone 1.69 and later may print `ERROR : symlinks not supported
+without the --links flag: /` as the mount starts. The mount works all the same.
 
 **You need:**
 - [rclone](https://rclone.org/downloads/).
@@ -117,6 +146,12 @@ You do not need an `rclone.conf` for this. If your `rclone.conf` holds passwords
 
 **Folder:** blank opens `/root` for root, or `/home/USER` otherwise.
 
+**Options:** open in a new window, reuse the last one, or follow VS Code's
+setting; plus extra command-line options.
+
+Download: [VS Code](https://code.visualstudio.com/download) and its
+[Remote-SSH extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh).
+
 ### File manager (Linux)
 
 **Opens:** the server in your desktop's file manager (GNOME Files, Dolphin, ...)
@@ -126,10 +161,47 @@ as `sftp://`.
 Tunnel Manager's key; a profile on your system OpenSSH config uses your keys.
 Otherwise it asks for the password.
 
+## Working as root
+
+WinSCP and rclone mount can open the files as root through sudo. Set up the
+server once (the program form shows the same steps):
+
+1. Find the server's SFTP server program:
+
+   ```text
+   grep -i '^ *Subsystem.*sftp' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/*.conf
+   ```
+
+   If it shows a path, use it. If it shows `internal-sftp`, find the file:
+
+   ```text
+   ls /usr/lib/openssh/sftp-server /usr/libexec/openssh/sftp-server /usr/lib/ssh/sftp-server /usr/libexec/sftp-server /usr/lib/sftp-server 2>/dev/null
+   ```
+
+   Usually: Debian/Ubuntu `/usr/lib/openssh/sftp-server`; RHEL, Fedora, Alma,
+   Rocky `/usr/libexec/openssh/sftp-server`; Arch `/usr/lib/ssh/sftp-server`.
+2. Let your login run only that program with sudo, without a password. Run
+   `sudo visudo -f /etc/sudoers.d/sftp-server` and add (your login and path):
+
+   ```text
+   youruser ALL=(root) NOPASSWD: /usr/lib/openssh/sftp-server
+   ```
+
+3. Check: `sudo -n -l /usr/lib/openssh/sftp-server` prints the path without
+   asking for a password. If sudo says it needs a tty, also add
+   `Defaults!/usr/lib/openssh/sftp-server !requiretty`.
+4. In the program's form, set **SFTP server command** to
+   `sudo -n /usr/lib/openssh/sftp-server`. `-n` makes sudo fail at once rather
+   than wait for a password.
+
+Files you create this way belong to root.
+
 ## Linked programs
 
 Add any program in **Configure programs… > Link a Program**: FileZilla, Rclone
-Browser, Cyberduck, and so on. You can link as many as you like.
+Browser, Cyberduck, and so on. You can link as many as you like. Since v0.1.35
+Link a Program first lists the programs Windows knows as installed; pick one to
+fill in its name and location, or choose its file yourself.
 
 **Arguments** can include the server's address:
 - `{url}` (`sftp://user@host:port/folder`)
@@ -157,11 +229,13 @@ macOS and Linux have no manager window, so there the list is set up with
 `tunnelm`:
 
 ```text
-tunnelm open-with catalog                       # what can be added here
+tunnelm open-with catalog                       # what can be added here, options
+tunnelm open-with installed                     # programs on this computer
 tunnelm open-with --profile PROFILE list        # the profile's programs
 tunnelm open-with --profile PROFILE add rclone-mount --folder /
 tunnelm open-with --profile PROFILE add linked --name FileZilla --path /usr/bin/filezilla --args "{url}"
 tunnelm open-with --profile PROFILE edit ID --mount-point /mnt/server
+tunnelm open-with --profile PROFILE edit ID --option symlinks=skip --extra-args "--dir-cache-time 5s"
 tunnelm open-with --profile PROFILE remove ID
 tunnelm open-with --profile PROFILE move ID up  # or down: the menu order
 tunnelm open-with PROFILE ID                    # open it
